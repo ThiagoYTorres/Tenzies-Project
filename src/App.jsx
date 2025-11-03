@@ -1,0 +1,66 @@
+import React from 'react'
+import {useState} from 'react'
+import './App.css'
+import './Dice.jsx'
+import Dice from './Dice.jsx'
+
+export default function App() {
+  
+ const [num, setNumber] = useState(gerarNumeros())
+
+ // Criando um array com 10 elementos
+ function gerarNumeros(){
+    const numbers = []
+    for( let i = 0; i < 10 ; i++ ){
+      numbers.push(Math.ceil(Math.random() * 6))
+    }
+// Cada elemento vira um objeto, fazendo uma lista de objetos   
+    const renderObjs = numbers.map( (el,index) => ({
+      value: el,
+      selecionado: false,
+      id: index
+  }))
+    return renderObjs
+  }
+  
+// A partir desses objetos, renderizo os componentes < Dice/>
+  const diceComp = num.map((el)=> {
+    return < Dice num={el.value} select={el.selecionado} id={el.id} key={el.id} selecionar={selecionar}/>
+  })
+
+  function roll(){
+    setNumber(prev => prev.map( el => el.selecionado ? el : {...el, value: Math.ceil(Math.random() * 6) } ))
+  }
+  
+  function selecionar(id){
+    setNumber( prev => prev.map((el)=> {
+      return el.id == id ? {...el,selecionado:!el.selecionado} : el
+  }))
+   
+  }
+
+  function valoresIguais(){
+    for( let i = 0; i < num.length; i++){
+      const objIgual = num[0].value
+      if( objIgual !== num[i].value){
+        return false
+      }
+      
+    }
+   return true
+    
+  }
+ 
+  return (
+    <div className='game'>
+      <h1 className='title'>Tenzies</h1>
+        <section className='dices-container'>
+      {console.log(num)}
+      {diceComp}
+      {console.log(valoresIguais())}
+        </section>
+      { num.every( obj => obj.selecionado == true ) && valoresIguais() && <h1 style={{textAlign: 'center', marginTop:'40px'}}>PARABÉNS VOCÊ GANHOU!!</h1> }
+      { num.every( obj => obj.selecionado == true && obj.value ) &&  valoresIguais() ? <button className='roll' onClick={() => setNumber(gerarNumeros())} style={{width:'150px'}}>New game</button> : <button className='roll' onClick={roll}>Roll</button>}
+    </div>
+  )
+}

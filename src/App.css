@@ -1,0 +1,56 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Karla;
+}
+.title{
+  font-size: 3rem;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+.dices-container{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 10px;
+  justify-items: center;
+}
+
+.dice{
+  padding: 15px 20px;
+  color: aliceblue;
+  background-color: rgb(131, 131, 131);
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px #525151;
+  cursor: pointer;
+  width: 65px;
+  text-align: center;
+  font-size: 2rem;
+  transition: 0.3s;
+}
+.roll{
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: 900;
+  font-size: 1rem;
+  border: none;
+  margin-top: 40px;
+  width: 100px;
+  color: aliceblue;
+  background-color: rgb(16, 149, 226);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.roll:hover{
+  background-color: rgb(57, 177, 247);
+}
+
+.selected{
+  background-color: rgb(15, 145, 15);
+}
+.game{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
