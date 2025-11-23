@@ -3,10 +3,13 @@ import {useState} from 'react'
 import './App.css'
 import './Dice.jsx'
 import Dice from './Dice.jsx'
+import Confetti from 'react-confetti'
+
 
 export default function App() {
   
- const [num, setNumber] = useState(gerarNumeros())
+ const [num, setNumber] = useState(() => gerarNumeros())
+
 
  // Criando um array com 10 elementos
  function gerarNumeros(){
@@ -23,9 +26,14 @@ export default function App() {
     return renderObjs
   }
   
-// A partir desses objetos, renderizo os componentes < Dice/>
+// A partir desses objetos, renderizo os componentes <Dice/>
   const diceComp = num.map((el)=> {
-    return < Dice num={el.value} select={el.selecionado} id={el.id} key={el.id} selecionar={selecionar}/>
+    return <Dice 
+      num={el.value} 
+      select={el.selecionado} 
+      id={el.id} 
+      key={el.id} 
+      selecionar={selecionar}/>
   })
 
   function roll(){
@@ -40,7 +48,7 @@ export default function App() {
   }
 
   function valoresIguais(){
-    for( let i = 0; i < num.length; i++){
+    for( let i = 0; i < num.length; i++ ){
       const objIgual = num[0].value
       if( objIgual !== num[i].value){
         return false
@@ -53,14 +61,17 @@ export default function App() {
  
   return (
     <div className='game'>
+      {console.log(window.innerWidth)}
       <h1 className='title'>Tenzies</h1>
         <section className='dices-container'>
       {console.log(num)}
       {diceComp}
       {console.log(valoresIguais())}
         </section>
-      { num.every( obj => obj.selecionado == true ) && valoresIguais() && <h1 style={{textAlign: 'center', marginTop:'40px'}}>PARABÉNS VOCÊ GANHOU!!</h1> }
-      { num.every( obj => obj.selecionado == true && obj.value ) &&  valoresIguais() ? <button className='roll' onClick={() => setNumber(gerarNumeros())} style={{width:'150px'}}>New game</button> : <button className='roll' onClick={roll}>Roll</button>}
+      { num.every( obj => obj.selecionado == true ) && valoresIguais() &&  
+        <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={500} /> }
+      { num.every( obj => obj.selecionado == true && obj.value ) && valoresIguais() ?
+      <button className='roll' onClick={() => setNumber(gerarNumeros())} style={{width:'150px'}}>New game</button>:<button className='roll' onClick={roll}>Roll</button>}
     </div>
   )
 }
