@@ -60,18 +60,23 @@ export default function App() {
   }
  
   return (
-    <div className='game'>
-      {console.log(window.innerWidth)}
-      <h1 className='title'>Tenzies</h1>
-        <section className='dices-container'>
-      {console.log(num)}
-      {diceComp}
-      {console.log(valoresIguais())}
-        </section>
-      { num.every( obj => obj.selecionado == true ) && valoresIguais() &&  
-        <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={500} /> }
-      { num.every( obj => obj.selecionado == true && obj.value ) && valoresIguais() ?
-      <button className='roll' onClick={() => setNumber(gerarNumeros())} style={{width:'150px'}}>New game</button>:<button className='roll' onClick={roll}>Roll</button>}
-    </div>
+    <main className='game-cont'>
+      <div className='game'>
+        {console.log(window.innerWidth)}
+        <h1 className='title'>Tenzies</h1>
+        <p>Gire os dados até que todos os valores sejam iguais.</p>
+        <p class='about'>Clique para segurar um dado.</p>
+
+          <section className='dices-container'>
+        {console.log(num)}
+        {diceComp}
+        {console.log(valoresIguais())}
+          </section>
+        { num.every( obj => obj.selecionado == true ) && valoresIguais() &&  
+          <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={500} /> }
+        { num.every( obj => obj.selecionado == true && obj.value ) && valoresIguais() ?
+        <button className='roll' onClick={() => setNumber(gerarNumeros())} style={{width:'150px'}}>New game</button>:<button className='roll' onClick={roll}>Roll</button>}
+      </div>
+    </main>
   )
 }

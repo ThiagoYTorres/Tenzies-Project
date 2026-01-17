@@ -5,12 +5,19 @@
   font-family: Karla;
 }
 body{
-  background-color: #bab7b7;
+  background-color: #165872;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  
 }
 .title{
   font-size: 3rem;
   text-align: center;
-  padding: 20px;
+  color: #252424;
+  margin-bottom: 10px;
+}
+.about{
   margin-bottom: 40px;
 }
 .dices-container{
@@ -50,7 +57,7 @@ body{
 }
 
 .selected{
-  background-color: rgb(15, 145, 15);
+  background-color: rgb(24, 178, 24);
 }
 .game{
   display: flex;
@@ -60,4 +67,15 @@ body{
 
 img{
   width:100%;
+}
+
+.game-cont{
+  background-color: aliceblue;
+  padding: 0px 40px 40px 40px;
+  display: flex;
+  width: 600px;
+  height: 550px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 }

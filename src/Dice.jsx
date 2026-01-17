@@ -5,7 +5,7 @@ export default function Dice(props) {
   return (
     <div className={props.select ? 'dice selected' : 'dice'}
     onClick={() => props.selecionar(props.id)}>
-      <img src={diceImg}/>
+      <img src={diceImg} draggable="false"/>
       </div>
   )
 }
