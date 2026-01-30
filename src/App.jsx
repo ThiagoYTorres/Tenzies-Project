@@ -1,15 +1,12 @@
-import React from 'react'
 import {useState} from 'react'
 import './App.css'
 import './Dice.jsx'
 import Dice from './Dice.jsx'
 import Confetti from 'react-confetti'
 
-
 export default function App() {
   
  const [num, setNumber] = useState(() => gerarNumeros())
-
 
  // Criando um array com 10 elementos
  function gerarNumeros(){
@@ -38,6 +35,7 @@ export default function App() {
 
   function roll(){
     setNumber(prev => prev.map( el => el.selecionado ? el : {...el, value: Math.ceil(Math.random() * 6) } ))
+    setRolls( prev => prev + 1)
   }
   
   function selecionar(id){
@@ -53,29 +51,31 @@ export default function App() {
       if( objIgual !== num[i].value){
         return false
       }
-      
     }
    return true
     
   }
- 
+  
+  function newGame(){
+    setNumber(gerarNumeros())
+  }
+  
   return (
     <main className='game-cont'>
       <div className='game'>
-        {console.log(window.innerWidth)}
         <h1 className='title'>Tenzies</h1>
         <p>Gire os dados até que todos os valores sejam iguais.</p>
-        <p class='about'>Clique para segurar um dado.</p>
-
+        <p className='about'>Clique para segurar um dado.</p>
           <section className='dices-container'>
         {console.log(num)}
         {diceComp}
         {console.log(valoresIguais())}
           </section>
         { num.every( obj => obj.selecionado == true ) && valoresIguais() &&  
-          <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={500} /> }
+          <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={500}/> }
         { num.every( obj => obj.selecionado == true && obj.value ) && valoresIguais() ?
-        <button className='roll' onClick={() => setNumber(gerarNumeros())} style={{width:'150px'}}>New game</button>:<button className='roll' onClick={roll}>Roll</button>}
+        <button className='roll' onClick={newGame} style={{width:'150px'}}>New game</button> : 
+        <button className='roll' onClick={roll}>Roll</button>}
       </div>
     </main>
   )

@@ -18,8 +18,9 @@ body{
   margin-bottom: 10px;
 }
 .about{
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
+
 .dices-container{
   display: grid;
   grid-template-columns: repeat(5,1fr);
@@ -42,9 +43,10 @@ body{
 .roll{
   padding: 15px 30px;
   border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px #313030;
   font-weight: 900;
   font-size: 1rem;
-  border: none;
+  border: solid rgb(52, 52, 52) 2px;
   margin-top: 40px;
   width: 100px;
   color: aliceblue;
@@ -79,3 +81,11 @@ img{
   justify-content: center;
   border-radius: 5px;
 }
+
+.cont {
+  background-color:rgb(217, 224, 231);
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+}
+
