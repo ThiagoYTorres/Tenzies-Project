@@ -1,12 +1,15 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import './App.css'
 import './Dice.jsx'
 import Dice from './Dice.jsx'
 import Confetti from 'react-confetti'
+import { use } from 'react'
 
 export default function App() {
   
  const [num, setNumber] = useState(() => gerarNumeros())
+ const [record,setRecord] = useState(0)
+ const [time,setTime] = useState(0)
 
  // Criando um array com 10 elementos
  function gerarNumeros(){
@@ -35,7 +38,7 @@ export default function App() {
 
   function roll(){
     setNumber(prev => prev.map( el => el.selecionado ? el : {...el, value: Math.ceil(Math.random() * 6) } ))
-    setRolls( prev => prev + 1)
+
   }
   
   function selecionar(id){
@@ -58,22 +61,53 @@ export default function App() {
   
   function newGame(){
     setNumber(gerarNumeros())
+    setTime(0)
   }
-  
+
+  const game = num.every( obj => obj.selecionado == true ) && valoresIguais() 
+
+useEffect( () => {
+  const interval = setInterval(() => {
+    if(game) return
+    setTime(prev => prev + 1)
+  }, 1000)
+
+  return () => clearInterval(interval)
+},[game])
+
+useEffect(()=>{
+  localStorage.setItem('record', record)
+  if(game){
+    if(time < record || record === 0){
+      setRecord(time)
+      localStorage.setItem('record', time )
+    }else{
+      null
+    }
+  }
+},[game])
+
+console.log('RECORD',localStorage.getItem('record'))
+
   return (
     <main className='game-cont'>
       <div className='game'>
         <h1 className='title'>Tenzies</h1>
         <p>Gire os dados até que todos os valores sejam iguais.</p>
         <p className='about'>Clique para segurar um dado.</p>
+        <div className='stats'>
+          <div className='record'><span className='st'>Record</span> <p>{record}s</p></div>
+          <div className='timer'><span className='st'>Time</span><p>{time}s</p></div>
+          
+        </div>
           <section className='dices-container'>
         {console.log(num)}
         {diceComp}
         {console.log(valoresIguais())}
           </section>
-        { num.every( obj => obj.selecionado == true ) && valoresIguais() &&  
+        {  game &&  
           <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={500}/> }
-        { num.every( obj => obj.selecionado == true && obj.value ) && valoresIguais() ?
+        { game ?
         <button className='roll' onClick={newGame} style={{width:'150px'}}>New game</button> : 
         <button className='roll' onClick={roll}>Roll</button>}
       </div>
