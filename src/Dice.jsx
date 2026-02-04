@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
 export default function Dice(props) {
-  const diceImg = `./imgs/dice${props.num}.png`
+  const diceImg = `./src/imgs/dice${props.num}.png`
   return (
     <div className={props.select ? 'dice selected' : 'dice'}
     onClick={() => props.selecionar(props.id)}>
