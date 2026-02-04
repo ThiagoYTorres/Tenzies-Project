@@ -3,7 +3,6 @@ import './App.css'
 import './Dice.jsx'
 import Dice from './Dice.jsx'
 import Confetti from 'react-confetti'
-import { use } from 'react'
 
 export default function App() {
   
@@ -75,9 +74,13 @@ useEffect( () => {
   return () => clearInterval(interval)
 },[game])
 
-useEffect(()=>{
-  localStorage.setItem('record', record)
+useEffect(() => {
+
+  const recordSalvo = localStorage.getItem('record')
+  recordSalvo ? setRecord(Number(recordSalvo)) : 0
+
   if(game){
+    localStorage.setItem('record', record)
     if(time < record || record === 0){
       setRecord(time)
       localStorage.setItem('record', time )
@@ -88,6 +91,7 @@ useEffect(()=>{
 },[game])
 
 console.log('RECORD',localStorage.getItem('record'))
+console.log('RECORD',record)
 
   return (
     <main className='game-cont'>
